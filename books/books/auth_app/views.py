@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import response, status
+from rest_framework.authtoken import views as auth_views
 
 from rest_framework.views import APIView
 
@@ -23,3 +24,7 @@ class RegisterAPIView(APIView):
             serializer.save()
             return response.Response(serializer.data, status.HTTP_201_CREATED)
         return response.Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+
+
+class LoginAPIVIew(auth_views.ObtainAuthToken):
+    pass

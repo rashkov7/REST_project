@@ -1,15 +1,22 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-from books.auth_app.models import BooksUser
 from books.auth_app.validators import passwords_mach_validate
 
 UserModel = get_user_model()
 
 
 class BooksUserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(max_length=50, min_length=6, write_only=True)
-    password2 = serializers.CharField(max_length=50, min_length=6, write_only=True)
+    password = serializers.CharField(
+        max_length=50,
+        min_length=6,
+        write_only=True,
+        style={"input_type":"password"})
+    password2 = serializers.CharField(
+        max_length=50,
+        min_length=6,
+        write_only=True,
+        style={"input_type":"password"})
 
     class Meta:
         model = UserModel
@@ -23,5 +30,4 @@ class BooksUserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         validated_data.pop('password2')
-        a = 5
         return UserModel.objects.create_user(**validated_data)
