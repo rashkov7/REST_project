@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from books.auth_app.models import BooksUser
+
+
+@admin.register(BooksUser)
+class AdminBooks(admin.ModelAdmin):
+    pass
