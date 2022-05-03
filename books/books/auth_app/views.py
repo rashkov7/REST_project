@@ -1,16 +1,15 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
 from rest_framework import response, status
 from rest_framework.authtoken import views as auth_views
 
 from rest_framework.views import APIView
 
-from books.auth_app.serializers import BooksUserSerializer
+from books.auth_app.serializers import BooksUserSerializer, LoginSerializer
 
 UserModel = get_user_model()
 
 
 class RegisterAPIView(APIView):
-
     serializer_class = BooksUserSerializer
 
     def get(self, request):
@@ -26,5 +25,17 @@ class RegisterAPIView(APIView):
         return response.Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
 
 
-class LoginAPIVIew(auth_views.ObtainAuthToken):
-    pass
+class LoginAPIVIew(APIView):
+    serializer_class = LoginSerializer
+
+    def post(self, request):
+        email = request.data.get('email', None)
+        password = request.data.get('password', None)
+
+        user = authenticate(username=email, password=password)
+
+        if user:
+            serializer = self.serializer_class(user)
+            return response.Response(serializer.data, status.HTTP_200_OK)
+
+        return response.Response({"message": "invalid credentials,try again!"}, status.HTTP_401_UNAUTHORIZED)

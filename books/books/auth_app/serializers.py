@@ -31,3 +31,17 @@ class BooksUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data.pop('password2')
         return UserModel.objects.create_user(**validated_data)
+
+
+class LoginSerializer(serializers.ModelSerializer):
+
+    password = serializers.CharField(
+        max_length=50,
+        min_length=6,
+        write_only=True,
+        style={"input_type": "password"})
+
+    class Meta:
+        model = UserModel
+        fields = (UserModel.USERNAME_FIELD, 'password', 'token')
+        read_only_fields = ['token']
