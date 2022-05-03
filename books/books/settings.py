@@ -53,6 +53,7 @@ INSTALLED_APPS = [
 
     'books.auth_app',
     'books.books_app',
+    'books.profile_app',
 ]
 
 MIDDLEWARE = [
