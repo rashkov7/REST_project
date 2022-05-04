@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model, authenticate
 from rest_framework import response, status
-from rest_framework.authtoken import views as auth_views
 
 from rest_framework.views import APIView
 

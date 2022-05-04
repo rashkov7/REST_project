@@ -1,6 +1,6 @@
 from django.urls import path
 
-from books.auth_app.views import RegisterAPIView,LoginAPIVIew
+from books.auth_app.views import RegisterAPIView, LoginAPIVIew
 
 urlpatterns = (
     path('register/', RegisterAPIView.as_view(), name="register"),
