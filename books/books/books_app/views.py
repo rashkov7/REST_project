@@ -1,7 +1,9 @@
 from rest_framework.generics import get_object_or_404
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status, permissions, response
 from rest_framework.views import APIView
+from rest_framework import generics
 
 from books.books_app.models import BookModel
 from books.books_app.serializers import BookSerializer
@@ -21,6 +23,16 @@ class ListBookView(APIView):
             serializer.save()
             return Response(data=serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class DetailsAPIView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = BookSerializer
+    lookup_field = "id"
+
+    def get_queryset(self):
+        query = BookModel.objects.filter(author=self.request.user)
+        return query
 
 
 class DetailsView(APIView):
@@ -61,3 +73,4 @@ class AuthorDashboardAPIView(APIView):
             serializer.save()
             return response.Response({"book created":serializer.data},status.HTTP_201_CREATED)
         return response.Response({"errors":serializer.errors},status.HTTP_400_BAD_REQUEST)
+

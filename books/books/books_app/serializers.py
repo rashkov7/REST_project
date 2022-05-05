@@ -6,7 +6,7 @@ from books.books_app.models import BookModel
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookModel
-        fields = ('title','description','pages')
+        fields = ('id', 'title', 'description', 'pages')
         # fields = '__all__'
 
     def validate(self, attrs):
