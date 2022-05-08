@@ -30,8 +30,6 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
 ]
 
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -50,12 +48,6 @@ INSTALLED_APPS = [
     'books.books_app',
     'books.profile_app',
 ]
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'books.auth_app.jwt.JWTAuthentication',
-    ]
-}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -116,6 +108,12 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'books.auth_app.jwt.JWTAuthentication',
+    ]
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/

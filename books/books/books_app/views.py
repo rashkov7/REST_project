@@ -56,7 +56,6 @@ class DetailsView(APIView):
 
 
 class AuthorDashboardAPIView(APIView):
-
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = BookSerializer
 
@@ -66,7 +65,7 @@ class AuthorDashboardAPIView(APIView):
         serializer = BookSerializer(books, many=True)
         return response.Response({"all books": serializer.data})
 
-    def post(self,request):
+    def post(self, request):
         request.data['user'] = request.user
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
