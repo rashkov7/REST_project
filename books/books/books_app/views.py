@@ -10,6 +10,7 @@ from books.books_app.serializers import BookSerializer
 
 
 class ListBookView(APIView):
+
     permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request):
@@ -26,6 +27,7 @@ class ListBookView(APIView):
 
 
 class DetailsAPIView(generics.RetrieveUpdateDestroyAPIView):
+
     permission_classes = (IsAuthenticated,)
     serializer_class = BookSerializer
     lookup_field = "id"
@@ -36,6 +38,9 @@ class DetailsAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class DetailsView(APIView):
+
+    permission_classes = (permissions.IsAuthenticated,)
+
     def get(self, request, pk):
         book = get_object_or_404(BookModel, id=pk)
         serializer = BookSerializer(book)
@@ -56,6 +61,7 @@ class DetailsView(APIView):
 
 
 class AuthorDashboardAPIView(APIView):
+
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = BookSerializer
 

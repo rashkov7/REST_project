@@ -7,8 +7,10 @@ from books.profile_app.serializers import ProfileSerializer
 
 UserModel = get_user_model()
 
+
 class ProfileAPIView(generics.RetrieveUpdateAPIView, generics.DestroyAPIView):
-    # permission_classes = (permissions.IsAuthenticated,)
+
+    permission_classes = (permissions.IsAuthenticated,)
     serializer_class = ProfileSerializer
     queryset = ProfileModel.objects.all()
 

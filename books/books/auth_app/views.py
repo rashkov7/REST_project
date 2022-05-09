@@ -10,6 +10,7 @@ UserModel = get_user_model()
 
 class RegisterAPIView(APIView):
     serializer_class = BooksUserSerializer
+    authentication_classes = ()
 
     def get(self, request):
         users = UserModel.objects.all()
@@ -26,6 +27,7 @@ class RegisterAPIView(APIView):
 
 class LoginAPIVIew(APIView):
     serializer_class = LoginSerializer
+    authentication_classes = ()
 
     def post(self, request):
         email = request.data.get('email', None)
